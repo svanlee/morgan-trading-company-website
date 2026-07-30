@@ -1,0 +1,44 @@
+/* Live Display — embeds the canonical mtc-live-display kiosk board. */
+
+.ld-intro { padding-block: clamp(1.6rem, 3vw, 2.4rem) 0; }
+.ld-intro .eyebrow { margin-bottom:.4rem; }
+.ld-intro h1 { font-size: clamp(1.9rem, 3vw, 2.6rem); margin:0 0 .4rem; }
+.ld-top { display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-end; justify-content:space-between; }
+.ld-top p { max-width: 56ch; color: var(--ink-soft); margin:0; }
+.ld-actions { display:flex; gap:.6rem; flex-wrap:wrap; }
+
+/* Live badge */
+.ld-live { display:inline-flex; align-items:center; gap:.5rem; font-weight:600; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; color:var(--gold-deep); }
+.ld-live .dot { width:9px; height:9px; border-radius:50%; background:var(--success); box-shadow:0 0 0 0 rgba(46,125,84,.5); animation: ldpulse 2s infinite; }
+@keyframes ldpulse { 0%{box-shadow:0 0 0 0 rgba(46,125,84,.5);} 70%{box-shadow:0 0 0 9px rgba(46,125,84,0);} 100%{box-shadow:0 0 0 0 rgba(46,125,84,0);} }
+
+/* Embedded board */
+.ld-stage-wrap { padding-block: clamp(1.4rem, 3vw, 2.2rem) clamp(2.5rem,5vw,4rem); }
+.ld-stage {
+  position: relative; width: 100%; aspect-ratio: 16 / 9;
+  background: #111; border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-lg); border: 1px solid rgba(0,0,0,.15);
+}
+.ld-stage iframe { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+.ld-stage.is-fs { border-radius:0; }
+
+/* Loading shim under the iframe */
+.ld-stage__loading {
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:1rem; color:#D4AF37; background:#111; z-index:0; text-align:center; padding:2rem;
+}
+.ld-stage__loading .spin { width:38px; height:38px; border:3px solid rgba(212,175,55,.25); border-top-color:#D4AF37; border-radius:50%; animation: ldspin 1s linear infinite; }
+@keyframes ldspin { to { transform: rotate(360deg); } }
+.ld-stage iframe { z-index:1; }
+
+/* Feature chips */
+.ld-features { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; }
+.ld-chip { display:inline-flex; align-items:center; gap:.45rem; font-size:.82rem; font-weight:500; color:var(--ink-soft); background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:.4rem .85rem; }
+.ld-chip svg { color: var(--gold-deep); }
+
+.ld-note { color:var(--muted); font-size:.85rem; margin-top:1rem; }
+
+/* On short/mobile screens keep the board usable */
+@media (max-width: 620px){
+  .ld-stage { aspect-ratio: 4 / 3; }
+}
